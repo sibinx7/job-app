@@ -1,0 +1,139 @@
+# ============================================================
+# Dependencies
+# ============================================================
+
+# Root dependencies
+/node_modules/
+
+# Dependencies inside apps
+/apps/**/node_modules/
+
+# Dependencies inside packages
+/packages/**/node_modules/
+
+
+# ============================================================
+# Build / Compiled output
+# ============================================================
+
+/dist/
+/build/
+/tmp/
+/out-tsc/
+/bazel-out/
+/apps/**/dist/
+/apps/**/build/
+/packages/**/dist/
+/packages/**/build/
+
+# Angular
+/.angular/cache/
+
+# Sass
+.sass-cache/
+
+# TypeScript
+.typings/
+
+# Bazel
+/**/bazel-out
+
+
+# ============================================================
+# Coverage / Testing
+# ============================================================
+
+/coverage/
+/.nyc_output/
+__screenshots__/
+
+# Angular Karma
+testem.log
+
+
+# ============================================================
+# Environment files
+# ============================================================
+
+# All .env files anywhere in the monorepo
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Allow example environment files
+!.env.example
+!**/.env.example
+
+
+# ============================================================
+# Logs
+# ============================================================
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+logs/
+
+
+# ============================================================
+# IDEs / Editors
+# ============================================================
+
+# IntelliJ / WebStorm
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# Sublime
+*.sublime-workspace
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+
+# History
+.history/
+
+
+# ============================================================
+# Temporary / Runtime files
+# ============================================================
+
+.temp/
+.tmp/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+/connect.lock
+
+
+# ============================================================
+# OS files
+# ============================================================
+
+.DS_Store
+Thumbs.db
+
+
+# ============================================================
+# Other
+# ============================================================
+
+/libpeerconnection.log
