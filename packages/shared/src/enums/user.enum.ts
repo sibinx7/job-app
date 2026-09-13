@@ -1,0 +1,13 @@
+export enum UserRole {
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  ADMIN = 'ADMIN',
+  COMPANY_STAFF = 'COMPANY_STAFF',
+  JOB_SEEKER = 'JOB_SEEKER',
+}
+
+export enum UserStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  PENDING = 'PENDING',
+  DELETED = 'DELETED',
+}

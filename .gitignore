@@ -137,3 +137,17 @@ Thumbs.db
 # ============================================================
 
 /libpeerconnection.log
+
+.turbo
+apps/api/.agents
+apps/api/.claude
+apps/api/.cursor
+apps/api/.devin
+apps/api/.windsurf
+
+
+apps/api/.agents
+apps/web/.claude
+apps/web/.cursor
+apps/web/.devin
+apps/web/.windsurf
