@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { TypeOrmModule} from '@nestjs/typeorm';
+import {User} from "../entity/user.entity.js";
 
 
 export default TypeOrmModule.forRoot({
@@ -9,6 +10,12 @@ export default TypeOrmModule.forRoot({
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  synchronize: true,
-  entities: [],
+  synchronize: false,
+  entities: [
+    User
+  ],
+  options: {
+    encrypt: false,
+    trustServerCertificate: true,
+  },
 });
