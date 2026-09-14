@@ -1,6 +1,7 @@
 {
   "name": "web",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,9 +10,7 @@
     "test": "ng test",
     "serve:ssr:web": "node dist/web/server/server.mjs",
     "dev": "ng serve"
-  },
-  "private": true,
-  "packageManager": "npm@11.19.1",
+  },  
   "dependencies": {
     "@angular/common": "^22.1.0",
     "@angular/compiler": "^22.1.0",

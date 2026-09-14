@@ -29,4 +29,63 @@ model User {
   created_at    DateTime  @default(now())
   updated_at    DateTime? @updatedAt
   deleted_at    DateTime?
+
+  company_staff CompanyStaff[]
+}
+
+
+model CompanyAddress {
+  id Int @id @default(autoincrement())
+  company_id Int
+  address String?
+  address_line_1 String?
+  address_line_2 String?
+  country_code  Int
+  country       String
+  pincode       String?
+  state         String?
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+
+  company Company @relation(fields: [company_id], references: [id])
+  @@index([company_id])
+}
+
+model Company {
+  id Int @id @default(autoincrement())
+  name String
+  company_code String? @unique
+  registration_number String? @unique
+  email String @unique
+  phone String @unique
+  country_code  Int
+  country       String
+  pincode       String?
+  state         String?
+  employee_count Int?
+  website String?
+  description String?
+  address String?
+  address_line_1 String?
+  address_line_2 String?  
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+  locations CompanyAddress[]
+  staff CompanyStaff[]
+}
+
+model CompanyStaff{
+  id Int @id @default(autoincrement())
+  company_id Int @unique
+  user_id Int @unique
+  role String
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+  company Company @relation(fields: [company_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
+  @@index([company_id])
+  @@index([user_id])
 }
