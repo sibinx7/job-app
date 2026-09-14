@@ -151,3 +151,8 @@ apps/web/.claude
 apps/web/.cursor
 apps/web/.devin
 apps/web/.windsurf
+
+
+
+.vscode 
+./**/.vscode 
