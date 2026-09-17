@@ -70,6 +70,7 @@ model Company {
   address              String?
   address_line_1       String?
   address_line_2       String?
+  logo_url             String?
   created_at           DateTime            @default(now())
   updated_at           DateTime?           @updatedAt
   deleted_at           DateTime?
@@ -119,7 +120,7 @@ model CompanyTechnology {
   updated_at DateTime? @updatedAt
   deleted_at DateTime?
 
-  company               Company                                @relation(fields: [company_id], references: [id])
+  company               Company                               @relation(fields: [company_id], references: [id])
   programming_languages CompanyTechnologyProgramingLanguage[]
   frameworks            CompanyTechnologyFramework[]
 
@@ -127,60 +128,59 @@ model CompanyTechnology {
 }
 
 model CompanyTechnologyProgramingLanguage {
-  id                      Int                @id @default(autoincrement())
+  id                      Int       @id @default(autoincrement())
   company_technology_id   Int
   programming_language_id Int
-  created_at              DateTime           @default(now())
-  updated_at              DateTime?          @updatedAt
+  created_at              DateTime  @default(now())
+  updated_at              DateTime? @updatedAt
   deleted_at              DateTime?
 
   company_technology   CompanyTechnology  @relation(fields: [company_technology_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   programming_language ProgramingLanguage @relation(fields: [programming_language_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
+  @@unique([company_technology_id, programming_language_id])
   @@index([company_technology_id])
   @@index([programming_language_id])
-  @@unique([company_technology_id, programming_language_id])
 }
 
 model CompanyTechnologyFramework {
-  id                       Int                 @id @default(autoincrement())
+  id                       Int       @id @default(autoincrement())
   company_technology_id    Int
   programming_framework_id Int
-  created_at               DateTime            @default(now())
-  updated_at               DateTime?           @updatedAt
+  created_at               DateTime  @default(now())
+  updated_at               DateTime? @updatedAt
   deleted_at               DateTime?
 
   company_technology    CompanyTechnology   @relation(fields: [company_technology_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   programming_framework ProgramingFramework @relation(fields: [programming_framework_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
+  @@unique([company_technology_id, programming_framework_id])
   @@index([company_technology_id])
   @@index([programming_framework_id])
-  @@unique([company_technology_id, programming_framework_id])
 }
 
 model ProgramingLanguage {
-  id                                      Int                                    @id @default(autoincrement())
-  name                                    String                                 @unique
+  id                                      Int                                   @id @default(autoincrement())
+  name                                    String                                @unique
   description                             String?
-  created_at                              DateTime                               @default(now())
-  updated_at                              DateTime?                              @updatedAt
+  created_at                              DateTime                              @default(now())
+  updated_at                              DateTime?                             @updatedAt
   deleted_at                              DateTime?
   frameworks                              ProgramingFramework[]
   company_technology_programing_languages CompanyTechnologyProgramingLanguage[]
 }
 
 model ProgramingFramework {
-  id                            Int                          @id @default(autoincrement())
-  name                          String                       @unique
-  description                   String?
-  programming_language_id       Int
-  created_at                    DateTime                     @default(now())
-  updated_at                    DateTime?                    @updatedAt
-  deleted_at                    DateTime?
+  id                      Int       @id @default(autoincrement())
+  name                    String    @unique
+  description             String?
+  programming_language_id Int
+  created_at              DateTime  @default(now())
+  updated_at              DateTime? @updatedAt
+  deleted_at              DateTime?
 
   programming_language          ProgramingLanguage           @relation(fields: [programming_language_id], references: [id])
   company_technology_frameworks CompanyTechnologyFramework[]
 
   @@index([programming_language_id])
 }
-
