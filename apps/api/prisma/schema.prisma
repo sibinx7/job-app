@@ -31,61 +31,156 @@ model User {
   deleted_at    DateTime?
 
   company_staff CompanyStaff[]
+  reviews       CompanyReview[]
 }
 
-
 model CompanyAddress {
-  id Int @id @default(autoincrement())
-  company_id Int
-  address String?
+  id             Int       @id @default(autoincrement())
+  company_id     Int
+  address        String?
   address_line_1 String?
   address_line_2 String?
-  country_code  Int
-  country       String
-  pincode       String?
-  state         String?
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  deleted_at DateTime?
+  country_code   Int
+  country        String
+  pincode        String?
+  state          String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime? @updatedAt
+  deleted_at     DateTime?
 
   company Company @relation(fields: [company_id], references: [id])
+
   @@index([company_id])
 }
 
 model Company {
-  id Int @id @default(autoincrement())
-  name String
-  company_code String? @unique
-  registration_number String? @unique
-  email String @unique
-  phone String @unique
-  country_code  Int
-  country       String
-  pincode       String?
-  state         String?
-  employee_count Int?
-  website String?
-  description String?
-  address String?
-  address_line_1 String?
-  address_line_2 String?  
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  deleted_at DateTime?
-  locations CompanyAddress[]
-  staff CompanyStaff[]
+  id                   Int                 @id @default(autoincrement())
+  name                 String
+  company_code         String?             @unique
+  registration_number  String?             @unique
+  email                String              @unique
+  phone                String              @unique
+  country_code         Int
+  country              String
+  pincode              String?
+  state                String?
+  employee_count       Int?
+  website              String?
+  description          String?
+  address              String?
+  address_line_1       String?
+  address_line_2       String?
+  created_at           DateTime            @default(now())
+  updated_at           DateTime?           @updatedAt
+  deleted_at           DateTime?
+  locations            CompanyAddress[]
+  staff                CompanyStaff[]
+  reviews              CompanyReview[]
+  company_technologies CompanyTechnology[]
 }
 
-model CompanyStaff{
-  id Int @id @default(autoincrement())
-  company_id Int @unique
-  user_id Int @unique
-  role String
-  created_at DateTime @default(now())
+model CompanyStaff {
+  id         Int       @id @default(autoincrement())
+  company_id Int       @unique
+  user_id    Int       @unique
+  role       String
+  created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
   deleted_at DateTime?
-  company Company @relation(fields: [company_id], references: [id])
-  user User @relation(fields: [user_id], references: [id])
+  company    Company   @relation(fields: [company_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
+
   @@index([company_id])
   @@index([user_id])
 }
+
+model CompanyReview {
+  id         Int       @id @default(autoincrement())
+  company_id Int
+  user_id    Int
+  rating     Int
+  review     String?
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+  anonymous  Boolean   @default(false)
+
+  company Company @relation(fields: [company_id], references: [id])
+  user    User    @relation(fields: [user_id], references: [id])
+
+  @@index([company_id])
+  @@index([user_id])
+}
+
+model CompanyTechnology {
+  id         Int       @id @default(autoincrement())
+  company_id Int
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+
+  company               Company                                @relation(fields: [company_id], references: [id])
+  programming_languages CompanyTechnologyProgramingLanguage[]
+  frameworks            CompanyTechnologyFramework[]
+
+  @@index([company_id])
+}
+
+model CompanyTechnologyProgramingLanguage {
+  id                      Int                @id @default(autoincrement())
+  company_technology_id   Int
+  programming_language_id Int
+  created_at              DateTime           @default(now())
+  updated_at              DateTime?          @updatedAt
+  deleted_at              DateTime?
+
+  company_technology   CompanyTechnology  @relation(fields: [company_technology_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  programming_language ProgramingLanguage @relation(fields: [programming_language_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([company_technology_id])
+  @@index([programming_language_id])
+  @@unique([company_technology_id, programming_language_id])
+}
+
+model CompanyTechnologyFramework {
+  id                       Int                 @id @default(autoincrement())
+  company_technology_id    Int
+  programming_framework_id Int
+  created_at               DateTime            @default(now())
+  updated_at               DateTime?           @updatedAt
+  deleted_at               DateTime?
+
+  company_technology    CompanyTechnology   @relation(fields: [company_technology_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  programming_framework ProgramingFramework @relation(fields: [programming_framework_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([company_technology_id])
+  @@index([programming_framework_id])
+  @@unique([company_technology_id, programming_framework_id])
+}
+
+model ProgramingLanguage {
+  id                                      Int                                    @id @default(autoincrement())
+  name                                    String                                 @unique
+  description                             String?
+  created_at                              DateTime                               @default(now())
+  updated_at                              DateTime?                              @updatedAt
+  deleted_at                              DateTime?
+  frameworks                              ProgramingFramework[]
+  company_technology_programing_languages CompanyTechnologyProgramingLanguage[]
+}
+
+model ProgramingFramework {
+  id                            Int                          @id @default(autoincrement())
+  name                          String                       @unique
+  description                   String?
+  programming_language_id       Int
+  created_at                    DateTime                     @default(now())
+  updated_at                    DateTime?                    @updatedAt
+  deleted_at                    DateTime?
+
+  programming_language          ProgramingLanguage           @relation(fields: [programming_language_id], references: [id])
+  company_technology_frameworks CompanyTechnologyFramework[]
+
+  @@index([programming_language_id])
+}
+
