@@ -12,17 +12,21 @@ export class UserService {
   ) {
   }
 
+  findById(id: number) {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
   /**
    * @description Get all Users
    */
-  findAll(){
+  findAll() {
     return this.userRepository.find();
   }
 
   /**
    * @description Get all Job Seekers
    */
-  findJobSeekers(){
+  findJobSeekers() {
     return this.userRepository.find({ where: { role: UserRole.JOB_SEEKER } });
   }
 }
