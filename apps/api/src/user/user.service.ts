@@ -29,4 +29,9 @@ export class UserService {
   findJobSeekers() {
     return this.userRepository.find({ where: { role: UserRole.JOB_SEEKER } });
   }
+
+
+  async findByUsername(username: string) {
+    return this.userRepository.findOne({ where: { email: username } });
+  }
 }

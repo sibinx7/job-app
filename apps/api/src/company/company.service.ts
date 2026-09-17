@@ -19,4 +19,13 @@ export class CompanyService {
   async findById(id: number) {
     return this.companyRepository.findOne({ where: { id } });
   }
+
+  async updateCompany(id: number, company: Company) {
+    return this.companyRepository.update(id, company);
+  }
+
+  async deleteCompany(id: number) {
+    return this.companyRepository.delete(id);
+  }
+
 }

@@ -1,8 +1,8 @@
 import { UserRole } from "@job-app/shared";
 
 export interface JwtPayload {
-  sub: string;
+  sub: number;
   username: string;
   role: UserRole;
-  expiresIn: string;
+  expiresIn: number;
 }
