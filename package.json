@@ -11,6 +11,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/passport-jwt": "^4.0.1",
     "concurrently": "^10.0.5",
     "turbo": "^2.10.12"
   },
@@ -19,5 +20,8 @@
       "name": "npm",
       "version": "^11.0.0"
     }
+  },
+  "dependencies": {
+    "passport-jwt": "^4.0.1"
   }
 }
