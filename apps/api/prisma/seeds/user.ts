@@ -4,6 +4,7 @@ import { UserRole, UserStatus } from '@job-app/shared';
 import { PrismaMssql } from '@prisma/adapter-mssql';
 import { PrismaClient } from '../generated/prisma/client.js';
 
+
 const adapter = new PrismaMssql({
   server: process.env.DATABASE_SERVER!,
   port: +process.env.DATABASE_PORT!,
@@ -20,7 +21,6 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
-  const password_hash = await bcrypt.hash('password@ABC123', 10);
   const users = [
     {
       first_name: 'Super',
@@ -29,7 +29,6 @@ async function main() {
       country_code: 91,
       country: 'India',
       email: 'superadmin@example.com',
-      password_hash,
       role: UserRole.SUPER_ADMIN,
       status: UserStatus.ACTIVE,
     },
@@ -38,7 +37,6 @@ async function main() {
       last_name: 'Admin',
       email: 'normaladmin@example.com',
       role: UserRole.ADMIN,
-      password_hash,
       phone: '0987654321',
       country: 'India',
       country_code: 91,
@@ -49,7 +47,6 @@ async function main() {
       last_name: 'Staff',
       email: 'companystaff@example.com',
       role: UserRole.COMPANY_STAFF,
-      password_hash,
       phone: '7987654321',
       country: 'India',
       country_code: 91,
@@ -60,7 +57,6 @@ async function main() {
       last_name: 'Seeker',
       email: 'jobseeker@example.com',
       role: UserRole.JOB_SEEKER,
-      password_hash,
       phone: '8943648198',
       country: 'India',
       country_code: 91,
@@ -69,15 +65,30 @@ async function main() {
   ];
 
   for (const user of users) {
+    // Generate fresh hash per user so each gets a unique salt and hash string
+    const password_hash = await bcrypt.hash('password@ABC123', 10);
+
     await prisma.user.upsert({
       where: {
         email: user.email,
-        phone: user.phone
       },
-      update: {},
-      create: user,
+      update: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        phone: user.phone,
+        country_code: user.country_code,
+        country: user.country,
+        role: user.role,
+        status: user.status,
+      },
+      create: {
+        ...user,
+        password_hash,
+      },
     });
   }
+
+  console.log('User seeds completed successfully.');
 }
 
 main()
