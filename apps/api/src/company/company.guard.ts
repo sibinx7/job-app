@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, ForbiddenException, Injectable, Unauthor
 import { Observable } from 'rxjs';
 import { AuthGuard } from '../auth/auth.guard.js';
 import { CompanyService } from './company.service.js';
+import { UserRole } from '@job-app/shared/dist/index.js';
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class CompanyGuard implements CanActivate {
     if (!request.user) {
       throw new UnauthorizedException();
     }
-    if (request?.user?.role !== UserRoles.COMPANY_STAFF) {
+    if (request?.user?.role !== UserRole.COMPANY_STAFF) {
       throw new ForbiddenException('You are not authorized to perform this action');
     }
     return true;

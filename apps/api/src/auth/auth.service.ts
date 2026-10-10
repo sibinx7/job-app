@@ -6,7 +6,7 @@ import { JwtPayload } from '../interfaces/jwtPayload.interface.js';
 import { User } from '../entity/user.entity.js';
 import { UserRole, UserStatus } from '@job-app/shared';
 import * as bcrypt from 'bcrypt';
-import { Request } from 'express';
+
 
 @Injectable()
 export class AuthService {
@@ -54,7 +54,7 @@ export class AuthService {
    * @param role 
    * @returns 
    */
-  async login(username: string, password: string, role: UserRoles = UserRole.JOB_SEEKER) {
+  async login(username: string, password: string, role: UserRole = UserRole.JOB_SEEKER) {
     const user = await this.userService.findByUsername(username);
     if (!user) {
       throw new UnauthorizedException('Invalid username')

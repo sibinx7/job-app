@@ -12,7 +12,7 @@ export class CompanyMiddleware implements NestMiddleware {
   ) {
 
   }
-  use(req: Request, res: Response, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     // If User not authenticated, throw error
     if (!req.headers.authorization) {
       throw new UnauthorizedException();
@@ -46,7 +46,7 @@ export class CompanyMiddleware implements NestMiddleware {
       )
     }
     req.user = user;
-    req.company = company;
+    (req as any).company = company;
     next();
   }
 }

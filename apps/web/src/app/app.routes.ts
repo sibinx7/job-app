@@ -17,15 +17,25 @@ export const routes: Routes = [
     component: About,
   },
   {
+    path: 'login',
+    loadComponent: () => import('./pages/common/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./pages/common/register/register').then((m) => m.Register),
+  },
+  {
+    path: 'forget-password',
+    loadComponent: () => import('./pages/common/forget-password/forget-password').then((m) => m.ForgetPassword),
+  },
+  {
     path: 'profile',
     loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin-module').then((m) => m.AdminModule),
-    canActivateChild: [
-      adminAuthGuard
-    ]
+    canActivateChild: [adminAuthGuard],
   },
 ];
