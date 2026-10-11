@@ -26,7 +26,13 @@ export const routes: Routes = [
   },
   {
     path: 'forget-password',
-    loadComponent: () => import('./pages/common/forget-password/forget-password').then((m) => m.ForgetPassword),
+    loadComponent: () =>
+      import('./pages/common/forget-password/forget-password').then((m) => m.ForgetPassword),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/common/reset-password/reset-password').then((m) => m.ResetPassword),
   },
   {
     path: 'profile',
