@@ -1,5 +1,5 @@
 import { signalStore, withState, withComputed, withMethods, patchState, withHooks } from '@ngrx/signals'
-import { inject, PLATFORM_ID, computed} from '@angular/core';
+import { inject, PLATFORM_ID, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { IUser } from '../interfaces/iUser';
 
@@ -51,8 +51,9 @@ export const AuthStore = signalStore(
   }),
   withHooks({
     onInit: (store) => {
-      const token = localStorage?.getItem('token');
-      const user = localStorage?.getItem('user');
+      const platformID = inject(PLATFORM_ID);
+      const token = isPlatformBrowser(platformID) ? localStorage?.getItem('token') : '';
+      const user = isPlatformBrowser(platformID) ? localStorage?.getItem('user') : null;
       if (token) {
         patchState(store, (state) => ({ token }));
       }

@@ -53,7 +53,7 @@ export class AuthService {
    * @param role 
    * @returns 
    */
-  async login(username: string, password: string, role: UserRole = UserRole.JOB_SEEKER) {
+  async login({ username, password, role = UserRole.JOB_SEEKER }: { username: string, password: string, role?: UserRole }) {
     const user = await this.userService.findByUsername(username);
     if (!user) {
       throw new UnauthorizedException('Invalid username')
@@ -131,5 +131,17 @@ export class AuthService {
    */
   private async findUser(userId: number): Promise<User | null> {
     return this.userService.findById(userId)
+  }
+
+
+
+  public async forgetPassword(forgetPassword: ForgetPassword) {
+    const userExists = this.userService.findByUsername(forgetPassword.email)
+    if (!userExists) {
+      throw new UnauthorizedException(
+        'User not found'
+      )
+    }
+
   }
 }
