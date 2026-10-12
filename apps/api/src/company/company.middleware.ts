@@ -46,7 +46,7 @@ export class CompanyMiddleware implements NestMiddleware {
       )
     }
     req.user = user;
-    req.company = company;
+    (req as any).company = company;
     next();
   }
 }
