@@ -15,7 +15,13 @@ export class AuthService {
 
   }
 
-  login(formData) {
+  login(formData: any) {
     return this.http.post(`${this.apiUrl}/login`, formData);
   }
+
+  forgetPassword(formData: any) {
+    return this.http.post(`${this.apiUrl}/forget-password`, formData);
+  }
+
+
 }

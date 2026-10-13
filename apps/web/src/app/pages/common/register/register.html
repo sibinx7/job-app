@@ -1,1 +1,50 @@
-<p>register works!</p>
+<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+  <div class="card register-card shadow-sm border-0 rounded-3" style="width: 100%; max-width: 400px;">
+    <div class="card-body register-card-body p-4 p-md-5">
+      <h3 class="text-center mb-2">Welcome Back</h3>
+      <p class="text-muted text-center mb-4">Please create your account</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()" [attr.data-bs-validate]="registerForm.invalid">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter your email"
+            required [class.is-invalid]="isInavlid('email')" />
+          @if(isInavlid('email')) {
+          <div class="invalid-feedback">
+            <p class="text-danger">Email is required and must be a valid email address.</p>
+          </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input formControlName="password" type="password" class="form-control" id="password"
+            placeholder="Enter your password" required [class.is-invalid]="isInavlid('password')" />
+        </div>
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <input formControlName="confirmPassword" type="password" class="form-control" id="confirm-password"
+            placeholder="Confirm your password" required
+            [class.is-invalid]="isInavlid('confirmPassword') || registerForm.hasError('passwordMismatch')" />
+          @if(registerForm.hasError('passwordMismatch')){
+          <div class="invalid-feedback">
+            <p class="text-danger">Passwords do not match</p>
+          </div>
+          }
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid && registerForm.dirty">
+          Register
+        </button>
+      </form>
+
+      <p class="text-center text-muted mt-4 mb-0">
+        Already have an account?
+        <a routerLink="/login" href="#" class="text-decoration-none">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
