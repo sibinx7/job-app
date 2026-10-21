@@ -5,7 +5,7 @@ import { JwtPayload } from '../interfaces/jwtPayload.interface.js';
 import { User } from '../entity/user.entity.js';
 import { UserRole, UserStatus } from '@job-app/shared';
 import * as bcrypt from 'bcrypt';
-import { ForgetPassword } from '../dto/forget-password/forget-password.js';
+import { ForgetPasswordDto } from '../dto/forget-password.dto/forget-password.dto.js';
 import { RegisterDto } from '../dto/register.dto/register.dto.js';
 
 
@@ -137,7 +137,7 @@ export class AuthService {
 
 
 
-  public async forgetPassword(forgetPassword: ForgetPassword) {
+  public async forgetPassword(forgetPassword: ForgetPasswordDto) {
     const userExists = this.userService.findByUsername(forgetPassword.email)
     if (!userExists) {
       throw new UnauthorizedException(
@@ -155,7 +155,7 @@ export class AuthService {
       )
     }
 
-    if (register.password !== register.confirmPassword) {
+    if (register.password !== register.confirm_password) {
       throw new UnauthorizedException(
         'Passwords do not match'
       )
@@ -181,7 +181,9 @@ export class AuthService {
       state: register?.state,
       status: UserStatus.PENDING,
     })
+
+    return {
+      message: 'User registered successfully'
+    }
   }
-
-
 }

@@ -30,7 +30,7 @@ export class RegisterDto {
     }
   )
 
-  confirmPassword: string;
+  confirm_password: string;
 
   @IsEnum(UserRole)
   @IsNotEmpty()
