@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import * as bcrypt from 'bcrypt';
-import { UserRole, UserStatus } from '@job-app/shared';
+import { UserGender, UserRole, UserStatus } from '@job-app/shared';
 import { PrismaMssql } from '@prisma/adapter-mssql';
 import { PrismaClient } from '../generated/prisma/client.js';
 
@@ -31,6 +31,10 @@ async function main() {
       email: 'superadmin@example.com',
       role: UserRole.SUPER_ADMIN,
       status: UserStatus.ACTIVE,
+      dob: new Date(),
+      gender: UserGender.MALE,
+      pincode: '123456',
+      state: 'Maharashtra',
     },
     {
       first_name: 'Normal',
@@ -41,6 +45,10 @@ async function main() {
       country: 'India',
       country_code: 91,
       status: UserStatus.ACTIVE,
+      dob: new Date(),
+      gender: UserGender.MALE,
+      pincode: '123456',
+      state: 'Maharashtra',
     },
     {
       first_name: 'Company',
@@ -51,6 +59,10 @@ async function main() {
       country: 'India',
       country_code: 91,
       status: UserStatus.ACTIVE,
+      dob: new Date(),
+      gender: UserGender.MALE,
+      pincode: '123456',
+      state: 'Maharashtra',
     },
     {
       first_name: 'Job',
@@ -61,6 +73,10 @@ async function main() {
       country: 'India',
       country_code: 91,
       status: UserStatus.ACTIVE,
+      dob: new Date(),
+      gender: UserGender.MALE,
+      pincode: '123456',
+      state: 'Maharashtra',
     },
   ];
 
