@@ -31,6 +31,10 @@ export class Register {
   });
 
   registerSubmit() {
+    this.registerForm.markAllAsTouched();
+    if (this.registerForm.invalid) {
+      return false;
+    }
     console.log(this.registerForm.value);
   }
 
