@@ -20,6 +20,8 @@ model User {
   email         String    @unique
   password_hash String    @unique
   phone         String    @unique
+  dob           DateTime?
+  gender        String?   @default("MALE")
   country_code  Int
   country       String
   pincode       String?

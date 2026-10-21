@@ -5,6 +5,8 @@ import { JwtPayload } from '../interfaces/jwtPayload.interface.js';
 import { User } from '../entity/user.entity.js';
 import { UserRole, UserStatus } from '@job-app/shared';
 import * as bcrypt from 'bcrypt';
+import { ForgetPassword } from '../dto/forget-password/forget-password.js';
+import { RegisterDto } from '../dto/register.dto/register.dto.js';
 
 
 @Injectable()
@@ -144,4 +146,42 @@ export class AuthService {
     }
 
   }
+
+  public async regiser(register: RegisterDto) {
+    const isUserExists = await this.userService.findByUsername(register.email)
+    if (isUserExists) {
+      throw new UnauthorizedException(
+        'User already exists'
+      )
+    }
+
+    if (register.password !== register.confirmPassword) {
+      throw new UnauthorizedException(
+        'Passwords do not match'
+      )
+    }
+
+
+    /**
+     * @description User added to database 
+     */
+    const password_hash = await bcrypt.hash(register.password, 10)
+    const user = await this.userService.create({
+      email: register.email,
+      password_hash: password_hash,
+      role: register.role,
+      first_name: register.firstName,
+      last_name: register.lastName,
+      phone: register.phone,
+      dob: register.dob,
+      gender: register.gender,
+      country_code: register?.countryCode,
+      pincode: register?.pincode,
+      country: register?.country,
+      state: register?.state,
+      status: UserStatus.PENDING,
+    })
+  }
+
+
 }

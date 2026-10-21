@@ -34,4 +34,10 @@ export class UserService {
   async findByUsername(username: string) {
     return this.userRepository.findOne({ where: { email: username } });
   }
+
+  async create(user: Partial<User>) {
+    const userData = this.userRepository.create(user)
+    return this.userRepository.save(userData);
+  }
 }
+

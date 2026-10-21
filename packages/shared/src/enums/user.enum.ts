@@ -11,3 +11,10 @@ export enum UserStatus {
   PENDING = 'PENDING',
   DELETED = 'DELETED',
 }
+
+
+export enum UserGender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER'
+}

@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole, UserStatus } from '@job-app/shared';
+import { UserGender, UserRole, UserStatus } from '@job-app/shared';
 
 @Entity('User')
-export class User{
+export class User {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -37,6 +37,15 @@ export class User{
 
   @Column()
   phone: string
+
+  @Column()
+  dob: Date
+
+  @Column({
+    enum: UserGender,
+    default: UserGender.MALE
+  })
+  gender?: string
 
   @Column()
   country_code: number
