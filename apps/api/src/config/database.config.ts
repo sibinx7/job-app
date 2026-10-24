@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { TypeOrmModule} from '@nestjs/typeorm';
-import {User} from "../entity/user.entity.js";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from "../entity/user.entity.js";
 
 
 export default TypeOrmModule.forRoot({
@@ -18,4 +18,5 @@ export default TypeOrmModule.forRoot({
     encrypt: false,
     trustServerCertificate: true,
   },
+  connectionTimeout: 15000
 });

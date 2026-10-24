@@ -30,16 +30,17 @@ export class Register {
     validators: passwordMatchValidator
   });
 
-  registerSubmit() {
+  registerSubmit(): boolean {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.invalid) {
       return false;
     }
     console.log(this.registerForm.value);
+    return true;
   }
 
   isInavlid(name: string) {
-    const selectedField = this.registerForm.get('name');
+    const selectedField = this.registerForm.get(name);
     return !!selectedField && selectedField.invalid && (selectedField?.dirty || selectedField?.touched)
   }
 }

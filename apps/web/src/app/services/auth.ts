@@ -16,11 +16,11 @@ export class AuthService {
   }
 
   login(formData: any) {
-    return this.http.post(`${this.apiUrl}/login`, formData);
+    return this.http.post(`${this.apiUrl}/auth/login`, formData);
   }
 
   forgetPassword(formData: any) {
-    return this.http.post(`${this.apiUrl}/forget-password`, formData);
+    return this.http.post(`${this.apiUrl}/auth/forget-password`, formData);
   }
 
 

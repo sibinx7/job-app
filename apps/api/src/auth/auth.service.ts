@@ -55,8 +55,9 @@ export class AuthService {
    * @param role 
    * @returns 
    */
-  async login({ username, password, role = UserRole.JOB_SEEKER }: { username: string, password: string, role?: UserRole }) {
-    const user = await this.userService.findByUsername(username);
+  async login({ email, password, role = UserRole.JOB_SEEKER }: { email: string, password: string, role?: UserRole }) {
+    console.log('Start Login', email, password, role)
+    const user = await this.userService.findByUsername(email);
     if (!user) {
       throw new UnauthorizedException('Invalid username')
     }
@@ -77,9 +78,13 @@ export class AuthService {
       expiresIn: 60 * 60 * 24 * 7 // 1 week
     };
     return {
-      access_token: this.jwtService.sign(payload)
+      access_token: this.jwtService.sign(payload, {
+        secret: process.env.JWT_SECRET,
+      })
     }
   }
+
+
 
 
   /**
@@ -155,7 +160,7 @@ export class AuthService {
       )
     }
 
-    if (register.password !== register.confirm_password) {
+    if (register.password !== register.confirmPassword) {
       throw new UnauthorizedException(
         'Passwords do not match'
       )
@@ -187,3 +192,4 @@ export class AuthService {
     }
   }
 }
+
