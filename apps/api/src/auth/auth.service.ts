@@ -154,6 +154,8 @@ export class AuthService {
   }
 
   public async regiser(register: RegisterDto) {
+    console.log('Register')
+    console.log(register)
     const isUserExists = await this.userService.findByUsername(register.email)
     if (isUserExists) {
       throw new UnauthorizedException(
