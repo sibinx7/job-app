@@ -3,7 +3,7 @@ import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validator
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 import { AuthStore } from '../../../auth/auth.store';
-import { UserRole } from '@job-app/shared/dist';
+import { UserRole } from '@job-app/shared';
 
 @Component({
   imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],

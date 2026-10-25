@@ -2,7 +2,7 @@ import { signalStore, withState, withComputed, withMethods, patchState, withHook
 import { inject, PLATFORM_ID, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { IUser } from '../interfaces/iUser';
-import {UserRole} from "@job-app/shared/dist";
+
 
 
 type AuthStoreState = {
