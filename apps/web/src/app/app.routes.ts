@@ -44,4 +44,8 @@ export const routes: Routes = [
     loadChildren: () => import('./admin/admin-module').then((m) => m.AdminModule),
     canActivateChild: [adminAuthGuard],
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard-module').then((m) => m.DashboardModule),
+  }
 ];

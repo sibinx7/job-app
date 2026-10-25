@@ -2,6 +2,7 @@ import { signalStore, withState, withComputed, withMethods, patchState, withHook
 import { inject, PLATFORM_ID, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { IUser } from '../interfaces/iUser';
+import {UserRole} from "@job-app/shared/dist";
 
 
 type AuthStoreState = {
@@ -12,7 +13,7 @@ type AuthStoreState = {
 const authInitialState: AuthStoreState = {
   token: '',
   user: null,
-}
+};
 
 export const AuthStore = signalStore(
   { providedIn: 'root' },
@@ -39,6 +40,13 @@ export const AuthStore = signalStore(
           localStorage.setItem('user', JSON.stringify(user));
         }
         patchState(store, (state) => ({ user }));
+      },
+      setUserAndToken: (token: string, user: IUser) => {
+        if (isPlatformBrowser(platformID)) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+        }
+        patchState(store, (state) => ({ token, user }));
       },
       clearUserAndToken: () => {
         if (isPlatformBrowser(platformID)) {
