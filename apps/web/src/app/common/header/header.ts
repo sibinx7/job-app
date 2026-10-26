@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {AuthStore} from "../../auth/auth.store";
+import { ProfileDropdown } from '../profile-dropdown/profile-dropdown';
 
 
 @Component({
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, ProfileDropdown],
   selector: 'app-header',
   styleUrl: './header.scss',
   templateUrl: './header.html',

@@ -2,6 +2,8 @@ import { signalStore, withState, withComputed, withMethods, patchState, withHook
 import { inject, PLATFORM_ID, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { IUser } from '../interfaces/iUser';
+import { RoleLabel } from '../utils/helper';
+import { UserRole } from '../../../../../packages/shared/src/enums/user.enum';
 
 
 
@@ -23,7 +25,13 @@ export const AuthStore = signalStore(
       isAuthenticated: computed(() => !!store?.token()),
       isAdmin: computed(() => (store.user() as any)?.isAdmin ?? false),
       user: computed(() => store.user()),
-      role: computed(() => (store.user() as any)?.role ?? ''),
+      role: computed(() => {
+        const role = store.user()?.role ?? UserRole.JOB_SEEKER;
+
+        return role in RoleLabel
+          ? RoleLabel[role as keyof typeof RoleLabel]
+          : 'Unknown Role';
+      }),
     };
   }),
   withMethods((store) => {

@@ -1,0 +1,27 @@
+.profile-dropdown-menu {
+  min-width: 360px;
+
+  li.profile-dropdown-menu-item {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+.profile-info {
+  display: flex;
+}
+
+.profile-dropdown-menu-item-profile {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.profile-info-details {
+  flex-grow: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -11,4 +11,6 @@ import { User } from '../entity/user.entity.js';
   controllers: [AuthController],
   providers: [AuthService, JwtService, UserService],
 })
-export class AuthModule {}
+export class AuthModule {
+  
+}

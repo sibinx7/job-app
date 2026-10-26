@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { UserService } from '../../../services/user';
 
 @Component({
   imports: [],
@@ -6,4 +7,19 @@ import { Component } from '@angular/core';
   styleUrl: './applied-jobs.scss',
   templateUrl: './applied-jobs.html',
 })
-export class AppliedJobs {}
+export class AppliedJobs implements OnInit {
+  constructor(
+    private userService: UserService
+  ) {
+
+  }
+
+  public appliedJobs = signal([]);
+
+  ngOnInit(): void {
+    this.userService.getAppliedJobs().subscribe((res: any) => {
+      this.appliedJobs.set(res)
+    });
+  }
+
+}
