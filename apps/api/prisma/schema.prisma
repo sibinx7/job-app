@@ -32,8 +32,9 @@ model User {
   updated_at    DateTime? @updatedAt
   deleted_at    DateTime?
 
-  company_staff CompanyStaff[]
-  reviews       CompanyReview[]
+  company_staff   CompanyStaff[]
+  reviews         CompanyReview[]
+  userAppliedJobs UserAppliedJob[]
 }
 
 model CompanyAddress {
@@ -80,6 +81,7 @@ model Company {
   staff                CompanyStaff[]
   reviews              CompanyReview[]
   company_technologies CompanyTechnology[]
+  jobs                 Job[]
 }
 
 model CompanyStaff {
@@ -92,6 +94,7 @@ model CompanyStaff {
   deleted_at DateTime?
   company    Company   @relation(fields: [company_id], references: [id])
   user       User      @relation(fields: [user_id], references: [id])
+  jobs       Job[]
 
   @@index([company_id])
   @@index([user_id])
@@ -170,6 +173,8 @@ model ProgramingLanguage {
   deleted_at                              DateTime?
   frameworks                              ProgramingFramework[]
   company_technology_programing_languages CompanyTechnologyProgramingLanguage[]
+  job                                     Job?                                  @relation(fields: [jobId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  jobId                                   Int?
 }
 
 model ProgramingFramework {
@@ -183,6 +188,53 @@ model ProgramingFramework {
 
   programming_language          ProgramingLanguage           @relation(fields: [programming_language_id], references: [id])
   company_technology_frameworks CompanyTechnologyFramework[]
+  job                           Job?                         @relation(fields: [job_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  job_id                        Int?
 
   @@index([programming_language_id])
+}
+
+model Job {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  company    Company @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  company_id Int
+
+  posted_by    CompanyStaff @relation(fields: [posted_by_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  posted_by_id Int
+
+  programing_languages     ProgramingLanguage[]
+  programing_langugage_id  Int
+  frameworks               ProgramingFramework[]
+  programing_frameowork_id Int
+  userAppliedJobs          UserAppliedJob[]
+
+  @@index([company_id])
+  @@index([posted_by_id])
+}
+
+model UserAppliedJob {
+  id                        Int       @id @default(autoincrement())
+  user                      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id                   Int
+  job                       Job       @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  job_id                    Int
+  cover_letter              String
+  resume_url                String
+  status                    String    @default("APPLIED")
+  applied_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  company_status            String    @default("PENDING")
+  company_status_updated_at DateTime?
+  deleted                   Boolean   @default(false)
+  deleted_at                DateTime?
+
+  @@unique([user_id, job_id])
+  @@index([user_id])
+  @@index([job_id])
 }
