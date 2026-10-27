@@ -5,6 +5,7 @@ import { Profile } from './pages/profile/profile';
 import { AdminModule } from './admin/admin-module';
 import { adminAuthGuard } from './admin-auth-guard';
 import { authGuard } from './auth-guard';
+import { jobSeekerGuard } from './auth/job-seeker-guard';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,10 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    loadComponent: () => import('./pages/common/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'company-login',
     loadComponent: () => import('./pages/common/login/login').then((m) => m.Login),
   },
   {
@@ -46,6 +51,12 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canMatch: [jobSeekerGuard],
     loadChildren: () => import('./dashboard/dashboard-module').then((m) => m.DashboardModule),
+  },
+  {
+    path: 'company',
+    loadChildren: () => import('./company/company-module').then((m) => m.CompanyModule),
+    canActivateChild: [authGuard],
   }
 ];

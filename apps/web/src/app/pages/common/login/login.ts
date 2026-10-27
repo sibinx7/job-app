@@ -12,7 +12,7 @@ import { UserRole } from '@job-app/shared';
   templateUrl: './login.html',
 })
 export class Login {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   public readonly authStore = inject(AuthStore);
   private router = inject(Router);
@@ -20,11 +20,23 @@ export class Login {
   ngOnInit() {
     const token = this.authStore.token();
     const user = this.authStore.user();
-    if(token && user){
+    if (token && user) {
       const role = user?.role as UserRole;
       this.redirectRoleNavigation(role);
     }
+    switch (this.router.url) {
+      case '/login':
+        this.loginForm.get('role')?.setValue(UserRole.JOB_SEEKER);
+        break;
+      case '/company-login':
+        this.loginForm.get('role')?.setValue(UserRole.COMPANY_STAFF);
+        break;
+      case '/admin-login':
+        this.loginForm.get('role')?.setValue(UserRole.ADMIN);
+        break;
+    }
   }
+
 
   loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
@@ -73,8 +85,8 @@ export class Login {
    * @description Redirects the user to the appropriate dashboard based on their role.
    * @param role The user's role.
    */
-  redirectRoleNavigation(role: UserRole){
-    switch (role){
+  redirectRoleNavigation(role: UserRole) {
+    switch (role) {
       case UserRole.JOB_SEEKER:
         this.router.navigate(['/dashboard']);
         break;
