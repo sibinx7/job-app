@@ -21,6 +21,14 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
+  const password_hash_1 = await bcrypt.hash('Password@123', 10)
+  const password_hash_2 = await bcrypt.hash('Password@456', 10)
+  const password_hash_3 = await bcrypt.hash('Password@789', 10)
+  const password_hash_4 = await bcrypt.hash('Password@777', 10)
+
+
+
+
   const users = [
     {
       first_name: 'Super',
@@ -35,6 +43,7 @@ async function main() {
       gender: UserGender.MALE,
       pincode: '123456',
       state: 'Maharashtra',
+      password_hash: password_hash_1
     },
     {
       first_name: 'Normal',
@@ -49,6 +58,7 @@ async function main() {
       gender: UserGender.MALE,
       pincode: '123456',
       state: 'Maharashtra',
+      password_hash: password_hash_2
     },
     {
       first_name: 'Company',
@@ -63,6 +73,7 @@ async function main() {
       gender: UserGender.MALE,
       pincode: '123456',
       state: 'Maharashtra',
+      password_hash: password_hash_3
     },
     {
       first_name: 'Job',
@@ -77,12 +88,13 @@ async function main() {
       gender: UserGender.MALE,
       pincode: '123456',
       state: 'Maharashtra',
+      password_hash: password_hash_4
     },
   ];
 
   for (const user of users) {
     // Generate fresh hash per user so each gets a unique salt and hash string
-    const password_hash = await bcrypt.hash('password@ABC123', 10);
+    const password_hash = user.password_hash;
 
     await prisma.user.upsert({
       where: {
@@ -96,6 +108,7 @@ async function main() {
         country: user.country,
         role: user.role,
         status: user.status,
+        password_hash,
       },
       create: {
         ...user,

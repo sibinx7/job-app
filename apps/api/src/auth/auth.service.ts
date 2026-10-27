@@ -61,7 +61,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid username')
     }
+
     const passwordValid = await bcrypt.compare(password, user.password_hash || '');
+
     if (!passwordValid) {
       throw new UnauthorizedException('Invalid password')
     }
@@ -81,7 +83,7 @@ export class AuthService {
       access_token: this.jwtService.sign(payload, {
         secret: process.env.JWT_SECRET,
       }),
-      user 
+      user
     }
   }
 
