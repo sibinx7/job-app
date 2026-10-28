@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/user.entity.js';
+import User from '../entity/user.entity.js';
 import { Repository } from 'typeorm';
 import { UserRole } from '@job-app/shared';
+import CompanyStaff from '../entity/company_staff.entity.js';
+import Company from '../entity/company.entity.js';
 
 @Injectable()
 export class UserService {
@@ -32,7 +34,16 @@ export class UserService {
 
 
   async findByUsername(username: string) {
-    return this.userRepository.findOne({ where: { email: username } });
+    console.log('Username', username)
+    if (!username) return null;
+    return this.userRepository.findOne({
+      where: { email: username },
+      relations: {
+        companyStaff: {
+          company: true
+        }
+      }
+    });
   }
 
   async create(user: Partial<User>) {

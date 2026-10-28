@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from "../entity/user.entity.js";
+import User from "../entity/user.entity.js";
+import Company from '../entity/company.entity.js';
+import CompanyStaff from '../entity/company_staff.entity.js';
 
 
 export default TypeOrmModule.forRoot({
@@ -12,7 +14,9 @@ export default TypeOrmModule.forRoot({
   database: process.env.DATABASE_NAME,
   synchronize: false,
   entities: [
-    User
+    User,
+    Company,
+    CompanyStaff
   ],
   options: {
     encrypt: false,

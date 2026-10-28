@@ -4,13 +4,18 @@ import {
   DeleteDateColumn,
   Entity,
   Index,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserGender, UserRole, UserStatus } from '@job-app/shared';
+import type CompanyStaff from './company_staff.entity.js';
+
+
 
 @Entity('User')
-export class User {
+export default class User {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -70,6 +75,9 @@ export class User {
     default: UserStatus.INACTIVE
   })
   status?: string
+
+  @OneToOne('CompanyStaff', (companyStaff: CompanyStaff) => companyStaff.user)
+  companyStaff?: CompanyStaff
 
   @CreateDateColumn()
   created_at: Date

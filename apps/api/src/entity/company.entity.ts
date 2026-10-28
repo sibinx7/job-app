@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import type CompanyStaff from "./company_staff.entity.js";
 
 @Entity('Company')
-export class Company {
+export default class Company {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -56,6 +57,9 @@ export class Company {
   @Column()
   company_logo: string
 
+  @OneToMany('CompanyStaff', (company_staff: CompanyStaff) => company_staff.company)
+  company_staff: CompanyStaff[]
+
   @CreateDateColumn()
   created_at: Date
 
@@ -66,4 +70,9 @@ export class Company {
     nullable: true
   })
   deleted_at?: Date
+
+
+
+
+
 }
