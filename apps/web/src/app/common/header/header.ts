@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthStore } from "../../auth/auth.store";
 import { ProfileDropdown } from '../profile-dropdown/profile-dropdown';
 import { UserRole } from '../../../../../../packages/shared/src/enums/user.enum';
+import { IUser } from '../../interfaces/iUser';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UserRole } from '../../../../../../packages/shared/src/enums/user.enum'
 export class Header {
   readonly authStore = inject(AuthStore);
 
-  public readonly role = computed(() => this.authStore?.user()?.role)
+  public readonly role = computed(() => (this.authStore?.user() as IUser | null)?.role)
   isAuthenticated(): boolean {
     return this.authStore.isAuthenticated();
   }

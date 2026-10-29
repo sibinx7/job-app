@@ -12,21 +12,37 @@ type AuthStoreState = {
   user: IUser | null;
 }
 
-const authInitialState: AuthStoreState = {
+const initalValue = {
   token: '',
   user: null,
-};
+}
+function getInitialAuthState(): AuthStoreState {
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const token = localStorage.getItem('token') || '';
+    const userStr = localStorage.getItem('user');
+    let user: IUser | null = null;
+    if (userStr) {
+      try {
+        user = JSON.parse(userStr);
+      } catch (e) {
+        console.error('Failed to parse user from localStorage', e);
+      }
+    }
+    return { token, user };
+  }
+  return { token: '', user: null };
+}
 
 export const AuthStore = signalStore(
   { providedIn: 'root' },
-  withState(authInitialState),
+  withState(getInitialAuthState()),
   withComputed((store) => {
     return {
       isAuthenticated: computed(() => !!store?.token()),
       isAdmin: computed(() => (store.user() as any)?.isAdmin ?? false),
       user: computed(() => store.user()),
       role: computed(() => {
-        const role = store.user()?.role ?? UserRole.JOB_SEEKER;
+        const role = (store.user() as any)?.role ?? UserRole.JOB_SEEKER;
 
         return role in RoleLabel
           ? RoleLabel[role as keyof typeof RoleLabel]
@@ -41,27 +57,37 @@ export const AuthStore = signalStore(
         if (isPlatformBrowser(platformID)) {
           localStorage.setItem('token', token);
         }
-        patchState(store, (state) => ({ token }));
+        patchState(store, (state: any) => ({
+          ...state,
+          token
+        }));
       },
       setUser: (user: IUser) => {
         if (isPlatformBrowser(platformID)) {
           localStorage.setItem('user', JSON.stringify(user));
         }
-        patchState(store, (state) => ({ user }));
+        patchState(store, (state: any) => ({
+          ...state,
+          user
+        }));
       },
       setUserAndToken: (token: string, user: IUser) => {
         if (isPlatformBrowser(platformID)) {
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
         }
-        patchState(store, (state) => ({ token, user }));
+        patchState(store, (state: any) => ({
+          ...state,
+          token,
+          user
+        }));
       },
       clearUserAndToken: () => {
         if (isPlatformBrowser(platformID)) {
           localStorage.removeItem('token');
           localStorage.removeItem('user');
         }
-        patchState(store, (state) => ({ token: '', user: null }));
+        patchState(store, () => ({ token: '', user: null }));
       },
     };
   }),

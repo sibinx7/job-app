@@ -54,9 +54,6 @@ export default class Company {
   @Column()
   logo_url: string
 
-  @Column()
-  company_logo: string
-
   @OneToMany('CompanyStaff', (company_staff: CompanyStaff) => company_staff.company)
   company_staff: CompanyStaff[]
 

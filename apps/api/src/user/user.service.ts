@@ -36,15 +36,13 @@ export class UserService {
   async findByUsername(username: string) {
     console.log('Username', username)
     if (!username) return null;
-    return this.userRepository.findOne({
-      where: { email: username },
-      relations: {
-        companyStaff: {
-          company: true
-        }
-      }
-    });
+    return this.userRepository.createQueryBuilder('user')
+      .leftJoinAndSelect('user.companyStaff', 'companyStaff', 'companyStaff.deleted_at IS NULL')
+      .leftJoinAndSelect('companyStaff.company', 'company', 'company.deleted_at IS NULL')
+      .where('user.email = :email', { email: username })
+      .getOne();
   }
+
 
   async create(user: Partial<User>) {
     const userData = this.userRepository.create(user)

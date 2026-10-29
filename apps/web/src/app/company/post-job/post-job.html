@@ -1,1 +1,147 @@
-<p>post-job works!</p>
+<div class="container-fluid my-5">
+  <form [formGroup]="jobPost" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="card-title mb-4 fw-bold text-dark">Post a Job</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-xs">
+          <div class="card-body p-4">
+
+            <!-- Hidden / Automatic Fields -->
+            <input type="hidden" formControlName="company_id">
+            <input type="hidden" formControlName="posted_by_id">
+
+            <!-- Basic Details Section -->
+            <h5 class="text-secondary border-bottom pb-2 mb-3">Basic Details</h5>
+
+            <!-- Title -->
+            <div class="mb-3">
+              <label class="form-label">Job Title *</label>
+              <input type="text" formControlName="title" class="form-control" />
+              @if(jobPost.get('title')?.touched && jobPost.get('title')?.invalid){
+              <div class="text-danger small mt-1">
+                Title is required.
+              </div>
+              }
+
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label">Description *</label>
+              <textarea rows="4" formControlName="description" class="form-control"></textarea>
+              @if(jobPost.get('description')?.touched && jobPost.get('description')?.invalid){
+              <div class="text-danger small mt-1">
+                Description is required.
+              </div>
+              }
+
+            </div>
+
+            <!-- Job Type -->
+            <div class="mb-4">
+              <label class="form-label">Job Type *</label>
+              <select formControlName="jobType" class="form-select">
+                <option value="">Select Job Type</option>
+                <option value="FULL_TIME">Full-time</option>
+                <option value="PART_TIME">Part-time</option>
+                <option value="CONTRACT">Contract</option>
+                <option value="INTERNSHIP">Internship</option>
+              </select>
+            </div>
+
+            <!-- Compensation & Experience Section -->
+            <h5 class="text-secondary border-bottom pb-2 mb-3">Compensation & Experience</h5>
+
+            <div class="row">
+              <!-- Salary Min -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Minimum Salary *</label>
+                <input type="number" formControlName="salary_min" class="form-control" />
+              </div>
+              <!-- Salary Max -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Maximum Salary *</label>
+                <input type="number" formControlName="salary_max" class="form-control" />
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <!-- Experience Min -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Min Experience (Years) *</label>
+                <input type="number" formControlName="experience_min" class="form-control" />
+              </div>
+              <!-- Experience Max -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Max Experience (Years) *</label>
+                <input type="number" formControlName="experience_max" class="form-control" />
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="jobPost.invalid" class="btn btn-primary w-100 py-2 fw-semibold">
+              Publish Job Post
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-xs">
+          <div class="card-body p-4">
+            <!-- Skills Section -->
+            <h5 class="text-secondary border-bottom pb-2 mb-3">Tech Stack</h5>
+
+            <!-- Programming Languages -->
+            <div class="mb-3">
+              <label class="form-label">Programming Languages (comma-separated)</label>
+              <app-multiselect [placeholder]="'TypeScript, JavaScript, Python'" />
+              <!-- <input type="text" (input)="updateArrayControl('programing_languages', $event)"
+                placeholder="TypeScript, JavaScript, Python" class="form-control" /> -->
+            </div>
+
+            <!-- Programming Frameworks -->
+            <div class="mb-4">
+              <label class="form-label">Programming Frameworks (comma-separated)</label>
+              <input type="text" (input)="updateArrayControl('programing_frameworks', $event)"
+                placeholder="NestJS, Angular, Express" class="form-control" />
+            </div>
+
+            <!-- Work Arrangement Section -->
+            <h5 class="text-secondary border-bottom pb-2 mb-3">Work Setup & Notice Period</h5>
+
+            <div class="d-flex gap-4 mb-3">
+              <div class="form-check">
+                <input type="checkbox" formControlName="is_hybrid" class="form-check-input" id="hybridCheck" />
+                <label class="form-check-label" for="hybridCheck">Hybrid</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" formControlName="is_remote" class="form-check-input" id="remoteCheck" />
+                <label class="form-check-label" for="remoteCheck">Remote</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" formControlName="is_onsite" class="form-check-input" id="onsiteCheck" />
+                <label class="form-check-label" for="onsiteCheck">Onsite</label>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <!-- Notice Period Min -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Min Notice Period (Days) *</label>
+                <input type="number" formControlName="notice_period_min" class="form-control" />
+              </div>
+              <!-- Notice Period Max -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Max Notice Period (Days) *</label>
+                <input type="number" formControlName="notice_period_max" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

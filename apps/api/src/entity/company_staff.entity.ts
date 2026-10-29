@@ -1,4 +1,13 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import type User from "./user.entity.js";
 import type Company from "./company.entity.js";
 
@@ -26,4 +35,14 @@ export default class CompanyStaff {
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn({
+    nullable: true,
+  })
+  deleted_at?: Date;
 }

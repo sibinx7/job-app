@@ -3,9 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { JobService } from '../../services/job';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AuthStore } from '../../auth/auth.store';
+import { IUser } from '../../interfaces/iUser';
+import { Multiselect } from '../../components/multiselect/multiselect';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Multiselect],
   selector: 'app-post-job',
   styleUrl: './post-job.scss',
   templateUrl: './post-job.html',
@@ -30,7 +33,7 @@ export class PostJob implements OnInit {
 
   }
 
-  readonly user = computed(() => this.authUser?.user())
+  readonly user = computed<IUser | null>(() => this.authUser?.user())
   jobPost = new FormGroup({
     title: new FormControl<string>('', Validators.required),
     description: new FormControl<string>('', Validators.required),
@@ -42,8 +45,8 @@ export class PostJob implements OnInit {
     experience_max: new FormControl<number>(0, Validators.required),
     programing_languages: new FormControl<string[]>([], Validators.required),
     programing_frameworks: new FormControl<string[]>([], Validators.required),
-    company_id: new FormControl<number>(this?.user()?.id as any, Validators.required),
-    posted_by_id: new FormControl<number>(this?.user()?.id as any, Validators.required),
+    company_id: new FormControl<number>((this?.user() as IUser | null)?.id as any, Validators.required),
+    posted_by_id: new FormControl<number>((this?.user() as IUser | null)?.id as any, Validators.required),
     is_hybrid: new FormControl<boolean>(false),
     is_remote: new FormControl<boolean>(false),
     is_onsite: new FormControl<boolean>(false),
@@ -51,4 +54,16 @@ export class PostJob implements OnInit {
     notice_period_max: new FormControl<number>(0, Validators.required)
 
   })
+
+
+  onSubmit() {
+
+  }
+
+
+  updateArrayControl(controlName: string, event: Event) {
+    const input = (event.target as HTMLInputElement).value;
+    const values = input ? input.split(',').map(item => item.trim()).filter(Boolean) : [];
+    this.jobPost.get(controlName)?.setValue(values);
+  }
 }

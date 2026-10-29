@@ -12,6 +12,7 @@
     "dev": "ng serve"
   },
   "dependencies": {
+    "@angular/aria": "^22.2.5",
     "@angular/common": "^22.1.0",
     "@angular/compiler": "^22.1.0",
     "@angular/core": "^22.1.0",

@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 import { AuthStore } from '../../../auth/auth.store';
 import { UserRole } from '@job-app/shared';
+import { IUser } from '../../../interfaces/iUser';
 
 @Component({
   imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
@@ -21,7 +22,7 @@ export class Login {
     const token = this.authStore.token();
     const user = this.authStore.user();
     if (token && user) {
-      const role = user?.role as UserRole;
+      const role = (user as IUser)?.role as UserRole ?? UserRole.JOB_SEEKER;
       this.redirectRoleNavigation(role);
     }
     switch (this.router.url) {
