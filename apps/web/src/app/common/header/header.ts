@@ -23,4 +23,8 @@ export class Header {
   get isCompanyStaff() {
     return this.role() === UserRole.COMPANY_STAFF
   }
+
+  get isJobSeeker(){
+    return this.role() === UserRole.JOB_SEEKER
+  }
 }

@@ -29,6 +29,8 @@
               <hr class="dropdown-divider">
             </li>
             <li><a routerLink="./company/post-job" class="dropdown-item" href="#">Post Job</a></li>
+            } @else if (isJobSeeker){
+              <li><a class="dropdown-item" href="dashboard/applied-jobs">Applied Jobs</a></li>
             }
           </ul>
         </li>
