@@ -17,25 +17,28 @@
         <li class="nav-item">
           <a class="nav-link" href="#" routerLink="about" routerLinkActive="active">About Us</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Jobs
-          </a>
-          <ul class="dropdown-menu">
-            @if(isCompanyStaff){
-            <li><a routerLink="./company/jobs" class="dropdown-item" href="#">Jobs</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a routerLink="./company/post-job" class="dropdown-item" href="#">Post Job</a></li>
-            } @else if (isJobSeeker){
-              <li><a class="dropdown-item" href="dashboard/applied-jobs">Applied Jobs</a></li>
-            }
-          </ul>
-        </li>
+        @if(isAuthenticated){
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Jobs
+            </a>
+            <ul class="dropdown-menu">
+              @if(isCompanyStaff){
+                <li><a routerLink="./company/jobs" class="dropdown-item" href="#">Jobs</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a routerLink="./company/post-job" class="dropdown-item" href="#">Post Job</a></li>
+              } @else if (isJobSeeker){
+                <li><a class="dropdown-item" href="dashboard/applied-jobs">Applied Jobs</a></li>
+              }
+            </ul>
+          </li>
+        }
+
       </ul>
-      @if (isAuthenticated()){
+      @if (isAuthenticated){
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <app-profile-dropdown />

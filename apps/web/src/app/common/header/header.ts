@@ -16,7 +16,7 @@ export class Header {
   readonly authStore = inject(AuthStore);
 
   public readonly role = computed(() => (this.authStore?.user() as IUser | null)?.role)
-  isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return this.authStore.isAuthenticated();
   }
 
