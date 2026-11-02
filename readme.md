@@ -644,6 +644,16 @@ npm run dev --workspace=@job-app/web
 npm run dev --workspace=@job-app/api
 ```
 
+### Seed API users
+
+From `apps/api`, configure `DATABASE_SERVER`, `DATABASE_PORT`, `DATABASE_NAME`,
+`DATABASE_USERNAME`, and `DATABASE_PASSWORD` in `.env`. Ensure the database is
+migrated and the Prisma client has been generated, then run:
+
+```bash
+npx tsx prisma/seeds/user.ts
+```
+
 ### Turbo filter
 
 ```bash
