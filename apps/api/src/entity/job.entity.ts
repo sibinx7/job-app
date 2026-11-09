@@ -1,7 +1,8 @@
 import { MAX } from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Company from "./company.entity.js";
 import User from "./user.entity.js";
+import { JobType  } from '../../../../packages/shared/dist/enums/job.enum.js'
 
 
 @Entity('Job')
@@ -30,9 +31,9 @@ export class Job {
   postedById: number
 
   // Experience
-  @Column({ name: 'experience_min' })
+  @Column({ name: 'experience_min', type: 'number' })
   experienceMin: number
-  @Column({ name: 'experience_max' })
+  @Column({ name: 'experience_max', type: 'number' })
   experienceMax: number
 
   @Column({ name: 'is_hybrid', type: 'bit', default: true })
@@ -43,4 +44,21 @@ export class Job {
 
   @Column({ name: 'is_remote', type: 'bit', default: false })
   isRemote: boolean
+
+  @Column({ name: 'job_type', type: 'nvarchar', length: 100, nullable: false })
+  jobType: JobType
+
+  @Column({ name: 'notice_period_min', type: 'number' })
+  noticePeriodMin: number
+
+  @Column({ name: 'notice_period_max', type: 'number' })
+  noticePeriodMax: number
+
+  @Column({ name: 'salary_min', type: 'number' })
+  salaryMin: number
+
+  @Column({ name: 'salary_max', type: 'number' })
+  salaryMax: number
+
+
 }
