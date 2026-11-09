@@ -2,6 +2,7 @@
   "name": "@job-app/shared",
   "version": "1.0.0",
   "private": false,
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./src/index.ts",
   "scripts": {
@@ -12,6 +13,10 @@
       "types": "./src/index.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./source": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     }
   }
 }

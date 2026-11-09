@@ -16,11 +16,15 @@ export class Header {
   readonly authStore = inject(AuthStore);
 
   public readonly role = computed(() => (this.authStore?.user() as IUser | null)?.role)
-  isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return this.authStore.isAuthenticated();
   }
 
   get isCompanyStaff() {
     return this.role() === UserRole.COMPANY_STAFF
+  }
+
+  get isJobSeeker(){
+    return this.role() === UserRole.JOB_SEEKER
   }
 }

@@ -37,21 +37,22 @@ export class PostJob implements OnInit {
   jobPost = new FormGroup({
     title: new FormControl<string>('', Validators.required),
     description: new FormControl<string>('', Validators.required),
-    locations: new FormControl<Array<Number>>([], Validators.required),
+    locations: new FormControl<Array<number>>([], Validators.required),
     salary_min: new FormControl<number>(0, Validators.required),
     salary_max: new FormControl<number>(0, Validators.required),
     jobType: new FormControl<string>('', Validators.required),
     experience_min: new FormControl<number>(0, Validators.required),
     experience_max: new FormControl<number>(0, Validators.required),
-    programing_languages: new FormControl<string[]>([], Validators.required),
-    programing_frameworks: new FormControl<string[]>([], Validators.required),
+    programing_languages: new FormControl<number[]>([], Validators.required),
+    programing_frameworks: new FormControl<number[]>([], Validators.required),
     company_id: new FormControl<number>((this?.user() as IUser | null)?.id as any, Validators.required),
     posted_by_id: new FormControl<number>((this?.user() as IUser | null)?.id as any, Validators.required),
     is_hybrid: new FormControl<boolean>(false),
     is_remote: new FormControl<boolean>(false),
     is_onsite: new FormControl<boolean>(false),
     notice_period_min: new FormControl<number>(0, Validators.required),
-    notice_period_max: new FormControl<number>(0, Validators.required)
+    notice_period_max: new FormControl<number>(0, Validators.required),
+
 
   })
 

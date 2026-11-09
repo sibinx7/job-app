@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import * as bcrypt from 'bcrypt';
-import { UserGender, UserRole, UserStatus } from '@job-app/shared';
+import { UserGender, UserRole, UserStatus } from '@job-app/shared/source';
 import { PrismaMssql } from '@prisma/adapter-mssql';
 import { PrismaClient } from '../generated/prisma/client.js';
 
