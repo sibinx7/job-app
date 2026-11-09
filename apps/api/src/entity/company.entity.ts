@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import type CompanyStaff from "./company_staff.entity.js";
+import { Job } from "./job.entity.js";
 
 @Entity('Company')
 export default class Company {
@@ -56,6 +57,11 @@ export default class Company {
 
   @OneToMany('CompanyStaff', (company_staff: CompanyStaff) => company_staff.company)
   company_staff: CompanyStaff[]
+
+
+  @OneToMany('Job', (job: any) => job.company)
+  jobs: Job[]
+
 
   @CreateDateColumn()
   created_at: Date

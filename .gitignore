@@ -153,6 +153,11 @@ apps/web/.devin
 apps/web/.windsurf
 
 
-
+ 
 .vscode 
 ./**/.vscode 
+
+
+./**/.vs
+./.vs
+.vs/
