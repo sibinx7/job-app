@@ -310,7 +310,7 @@ model UserAppliedJob {
   @@index([job_id])
 }
 
-model userFavoriteCompany {
+model UserFavoriteCompany {
   id         Int       @id @default(autoincrement())
   company_id Int
   user_id    Int

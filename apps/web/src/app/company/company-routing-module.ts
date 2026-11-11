@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'post-job',
     loadComponent: () => import('./post-job/post-job').then((m) => m.PostJob)
+  },
+  {
+    path: 'skills',
+    loadComponent: () => import('./skills/skills').then((m) => m.Skills)
   }
 ];
 

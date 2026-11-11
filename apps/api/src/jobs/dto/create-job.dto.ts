@@ -8,7 +8,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { JobType } from '@job-app/shared';
+import { JobType } from '../../../../../packages/shared/dist/enums/job.enum.js'
 
 
 export class CreateJobDto {

@@ -1,8 +1,9 @@
 import { MAX } from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Company from "./company.entity.js";
 import User from "./user.entity.js";
 import { JobType  } from '../../../../packages/shared/dist/enums/job.enum.js'
+
 
 
 @Entity('Job')
@@ -59,6 +60,18 @@ export class Job {
 
   @Column({ name: 'salary_max', type: 'number' })
   salaryMax: number
+
+
+  @CreateDateColumn()
+  created_at: Date
+
+  @UpdateDateColumn()
+  updated_at: Date
+
+  @DeleteDateColumn({
+    nullable: true
+  })
+  deleted_at?: Date
 
 
 }

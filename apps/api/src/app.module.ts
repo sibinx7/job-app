@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { CompanyService } from './company/company.service.js';
 import { CompanyModule } from './company/company.module.js';
 import { JobsModule } from './jobs/jobs.module.js';
+import { SkillsModule } from './skills/skills.module.js';
 import DatabaseModule from './config/database.config.js';
 
 
@@ -27,6 +28,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     UserModule,
     AuthModule,
     JobsModule,
+    SkillsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
